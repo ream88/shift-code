@@ -1,0 +1,21 @@
+{
+  "name": "SHiFT Code",
+  "version": "1.0",
+  "description": "Copy the latest SHiFT code to the clipboard",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "icons": {
+    "16": "assets/icon_16.png",
+    "48": "assets/icon_48.png",
+    "128": "assets/icon_128.png"
+  },
+  "browser_action": {},
+  "permissions": [
+    "clipboardWrite"
+  ]
+}
