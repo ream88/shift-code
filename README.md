@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/icon_48.png" width="48" />
-  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/yes_48.png" width="48" />
-  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/nope_48.png" width="48" />
+  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/icon_128.png" width="48" />
+  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/yes_128.png" width="48" />
+  <img src="https://github.com/ream88/shift-code/blob/master/extension/assets/nope_128.png" width="48" />
 </p>
 
 # shift-code
