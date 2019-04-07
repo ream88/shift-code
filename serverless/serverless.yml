@@ -1,0 +1,21 @@
+service: shift-code
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-1
+
+functions:
+  fetch:
+    handler: handler.fetch
+    events:
+      - http:
+           path: /
+           method: GET
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    port: 8080

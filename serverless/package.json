@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "main": "handler.js",
+  "scripts": {
+    "start": "dotenv serverless offline"
+  },
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^2.0.0",
+    "serverless-offline": "^4.9.4"
+  }
+}
