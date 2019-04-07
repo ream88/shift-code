@@ -10,6 +10,10 @@ const params = new URLSearchParams({
   tweet_mode: 'extended',
   count: 25
 })
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true
+}
 
 function getShiftCode (tweets) {
   if (tweets[0]) {
@@ -20,9 +24,9 @@ function getShiftCode (tweets) {
 
 function buildResponse (shiftCode) {
   if (shiftCode) {
-    return { statusCode: 200, body: JSON.stringify(shiftCode) }
+    return { statusCode: 200, headers: corsHeaders, body: JSON.stringify(shiftCode) }
   }
-  return { statusCode: 204 }
+  return { statusCode: 204, headers: corsHeaders }
 }
 
 module.exports.fetch = async () => (
