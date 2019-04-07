@@ -1,6 +1,7 @@
 {
   "private": true,
   "main": "handler.js",
+  "description": "Fetches the last SHiFT code tweet from https://twitter.com/borderlands",
   "scripts": {
     "start": "dotenv serverless offline"
   },

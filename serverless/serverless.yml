@@ -4,10 +4,15 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-west-1
+  stage: production
+  deploymentBucket:
+    name: lambda.mariouher.com
 
 functions:
   fetch:
     handler: handler.fetch
+    name: ${self:service}-${self:provider.stage}
+    description: ${file(package.json):description}
     events:
       - http:
            path: /
