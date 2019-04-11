@@ -8,7 +8,7 @@ const url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 const params = new URLSearchParams({
   screen_name: 'borderlands',
   tweet_mode: 'extended',
-  count: 50
+  count: 100
 })
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
