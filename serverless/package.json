@@ -4,7 +4,8 @@
   "description": "Fetches the last SHiFT code tweet from https://twitter.com/borderlands",
   "scripts": {
     "deploy": "serverless deploy --aws-profile private",
-    "start": "dotenv serverless offline"
+    "start": "dotenv serverless offline",
+    "test": "node test.js"
   },
   "dependencies": {
     "node-fetch": "^2.3.0"
