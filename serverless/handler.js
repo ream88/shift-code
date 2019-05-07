@@ -42,8 +42,8 @@ function buildResponse (shiftCode) {
   return { statusCode: 204, headers: corsHeaders }
 }
 
-async function handler () {
-  const regex = getRegex()
+async function handler (event) {
+  const regex = getRegex(event.path.substring(1))
 
   return fetch(`${url}?${params.toString()}`, { headers: { 'Authorization': `Bearer ${process.env.TOKEN}` } })
     .then((response) => response.json())
