@@ -3,7 +3,6 @@
 const fetch = require('node-fetch')
 const { URLSearchParams } = require('url')
 
-const check = /PC.*(([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
 const url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 const params = new URLSearchParams({
   screen_name: 'borderlands',
@@ -15,9 +14,22 @@ const corsHeaders = {
   'Access-Control-Allow-Credentials': true
 }
 
-function getShiftCode (tweets) {
+function getRegex (platform) {
+  switch (platform) {
+    case 'xbox':
+      return /XBOne.*(([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+
+    case 'ps':
+      return /PS.*(([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+
+    default:
+      return /PC.*(([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+  }
+}
+
+function getShiftCode (tweets, regex) {
   if (tweets[0]) {
-    const match = tweets[0].full_text.match(check)
+    const match = tweets[0].full_text.match(regex)
     return match && match[1] ? match[1] : null
   }
   return null
@@ -31,11 +43,17 @@ function buildResponse (shiftCode) {
 }
 
 async function handler () {
+  const regex = getRegex()
+
   return fetch(`${url}?${params.toString()}`, { headers: { 'Authorization': `Bearer ${process.env.TOKEN}` } })
     .then((response) => response.json())
-    .then((tweets) => tweets.filter((tweet) => check.test(tweet.full_text)))
-    .then(getShiftCode)
+    .then((tweets) => tweets.filter((tweet) => regex.test(tweet.full_text)))
+    .then((tweets) => getShiftCode(tweets, regex))
     .then(buildResponse)
 }
 
-module.exports = { fetch: handler, getShiftCode }
+module.exports = {
+  fetch: handler,
+  getShiftCode,
+  getRegex
+}
