@@ -1,6 +1,12 @@
 /* global chrome, fetch */
 
-const url = 'https://4uw1u63j59.execute-api.eu-west-1.amazonaws.com/production'
+const getURL = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get({
+      url: 'https://4uw1u63j59.execute-api.eu-west-1.amazonaws.com/production'
+    }, (items) => resolve(items.url))
+  })
+}
 
 const copyToClipboard = (text) => {
   const textarea = document.createElement('textarea')
@@ -27,7 +33,8 @@ const iconPaths = (icon) => ({
 })
 
 chrome.browserAction.onClicked.addListener(() => {
-  fetch(url)
+  getURL()
+    .then(fetch)
     .then((response) => response.json())
     .then(copyToClipboard)
     .then(() => setIcon('yes'))

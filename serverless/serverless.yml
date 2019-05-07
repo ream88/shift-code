@@ -15,9 +15,17 @@ functions:
     description: ${file(package.json):description}
     events:
       - http:
-           path: /
-           method: GET
-           cors: true
+          path: /
+          method: GET
+          cors: true
+      - http:
+          path: /ps
+          method: GET
+          cors: true
+      - http:
+          path: /xbox
+          method: GET
+          cors: true
 
 plugins:
   - serverless-offline
