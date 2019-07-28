@@ -33,3 +33,5 @@ const ps = getRegex('ps')
 assert.strictEqual('5KWT3-J6FKH-SZTCT-HBK3J-HZ55R', getShiftCode([tweets[0]], ps))
 assert.strictEqual(null, getShiftCode([tweets[1], ps]))
 assert.strictEqual('5TCTT-FZJZ9-ZTCZ5-ZBKTB-WJ5CX', getShiftCode([tweets[2]], ps))
+
+console.info('OK')
