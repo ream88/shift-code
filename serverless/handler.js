@@ -45,7 +45,7 @@ function buildResponse (shiftCode) {
 async function handler (event) {
   const regex = getRegex(event.path.substring(1))
 
-  return fetch(`${url}?${params.toString()}`, { headers: { 'Authorization': `Bearer ${process.env.TOKEN}` } })
+  return fetch(`${url}?${params.toString()}`, { headers: { Authorization: `Bearer ${process.env.TOKEN}` } })
     .then((response) => response.json())
     .then((tweets) => tweets.filter((tweet) => regex.test(tweet.full_text)))
     .then((tweets) => getShiftCode(tweets, regex))

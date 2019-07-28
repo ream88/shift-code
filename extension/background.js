@@ -26,10 +26,10 @@ function setIcon (icon) {
 }
 
 const iconPaths = (icon) => ({
-  '16': `/assets/${icon}_16.png`,
-  '32': `/assets/${icon}_32.png`,
-  '48': `/assets/${icon}_48.png`,
-  '128': `/assets/${icon}_128.png`
+  16: `/assets/${icon}_16.png`,
+  32: `/assets/${icon}_32.png`,
+  48: `/assets/${icon}_48.png`,
+  128: `/assets/${icon}_128.png`
 })
 
 chrome.browserAction.onClicked.addListener(() => {

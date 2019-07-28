@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "lint": "standard --fix"
+  },
+  "devDependencies": {
+    "standard": "^13.1.0"
+  }
+}
