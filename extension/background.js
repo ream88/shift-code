@@ -18,6 +18,18 @@ function copyToClipboard (text) {
   document.body.removeChild(textarea)
 }
 
+function checkLastCode (code) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get({ code: null }, (storage) => {
+      if (code === storage.code) {
+        reject(new Error('No new code found!'))
+      } else {
+        chrome.storage.sync.set({ code }, () => resolve(code))
+      }
+    })
+  })
+}
+
 function setIcon (icon) {
   chrome.browserAction.setIcon({ path: iconPaths(icon) })
 
@@ -25,12 +37,29 @@ function setIcon (icon) {
   setTimeout(() => chrome.browserAction.setIcon({ path: iconPaths('icon') }), 2500)
 }
 
-const iconPaths = (icon) => ({
-  16: `/assets/${icon}_16.png`,
-  32: `/assets/${icon}_32.png`,
-  48: `/assets/${icon}_48.png`,
-  128: `/assets/${icon}_128.png`
-})
+function iconPaths (icon) {
+  return {
+    16: `/assets/${icon}_16.png`,
+    32: `/assets/${icon}_32.png`,
+    48: `/assets/${icon}_48.png`,
+    128: `/assets/${icon}_128.png`
+  }
+}
+
+function createNotification (code) {
+  const notification = {
+    type: 'basic',
+    iconUrl: '/assets/icon_128.png',
+    title: 'Borderlands SHiFT Code',
+    message: 'A new SHiFT code is available!',
+    buttons: [{ title: 'Copy' }]
+  }
+
+  chrome.notifications.create(notification)
+  chrome.notifications.onButtonClicked.addListener(() => {
+    copyToClipboard(code)
+  })
+}
 
 chrome.browserAction.onClicked.addListener(() => {
   getURL()
@@ -39,4 +68,18 @@ chrome.browserAction.onClicked.addListener(() => {
     .then(copyToClipboard)
     .then(() => setIcon('yes'))
     .catch(() => setIcon('nope'))
+})
+
+chrome.alarms.create('checkForNewCode', {
+  when: Date.now() + 1000,
+  periodInMinutes: 60
+})
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  getURL()
+    .then(fetch)
+    .then((response) => response.json())
+    .then(checkLastCode)
+    .then(createNotification)
+    .catch(console.warn)
 })
