@@ -1,6 +1,6 @@
 /* global chrome, fetch */
 
-const getURL = () => {
+function getURL () {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get({
       url: 'https://4uw1u63j59.execute-api.eu-west-1.amazonaws.com/production'
@@ -8,7 +8,7 @@ const getURL = () => {
   })
 }
 
-const copyToClipboard = (text) => {
+function copyToClipboard (text) {
   const textarea = document.createElement('textarea')
   document.body.appendChild(textarea)
   textarea.value = text
@@ -18,7 +18,7 @@ const copyToClipboard = (text) => {
   document.body.removeChild(textarea)
 }
 
-const setIcon = (icon) => {
+function setIcon (icon) {
   chrome.browserAction.setIcon({ path: iconPaths(icon) })
 
   // Reset the icon after 2,5 seconds
