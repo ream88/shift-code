@@ -1,10 +1,11 @@
 /* global chrome, fetch */
 
+const LAMBDA_URL = 'https://4uw1u63j59.execute-api.eu-west-1.amazonaws.com/production'
+const REWARDS_URL = 'https://shift.gearboxsoftware.com/rewards'
+
 function getURL () {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get({
-      url: 'https://4uw1u63j59.execute-api.eu-west-1.amazonaws.com/production'
-    }, (items) => resolve(items.url))
+    chrome.storage.sync.get({ url: LAMBDA_URL }, (items) => resolve(items.url))
   })
 }
 
@@ -51,13 +52,15 @@ function createNotification (code) {
     type: 'basic',
     iconUrl: '/assets/icon_128.png',
     title: 'Borderlands SHiFT Code',
-    message: 'A new SHiFT code is available!',
-    buttons: [{ title: 'Copy' }]
+    message: 'A new SHiFT code is available!'
   }
 
   chrome.notifications.create(notification)
-  chrome.notifications.onButtonClicked.addListener(() => {
-    copyToClipboard(code)
+  chrome.notifications.onClicked.addListener(() => {
+    chrome.tabs.create({ url: REWARDS_URL }, () => {
+      copyToClipboard(code)
+      setIcon('yes')
+    })
   })
 }
 
