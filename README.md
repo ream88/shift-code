@@ -6,7 +6,7 @@
 
 # shift-code
 
-A [Google Chrome extension](https://chrome.google.com/webstore/detail/borderlands-shift-code/dnlfokkjdfiniafbclgfjfdlfamdlpln) which allows you to copy the latest Borderlands SHiFT code directly to your clipboard and save a few seconds of your precious life!
+A browser extension for [Google Chrome](https://chrome.google.com/webstore/detail/borderlands-shift-code/dnlfokkjdfiniafbclgfjfdlfamdlpln), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/borderlands-shift-code/) (and many others) which allows you to copy the latest Borderlands SHiFT code directly to your clipboard and save a few seconds of your precious life!
 
 ## [extension](/extension)
 
