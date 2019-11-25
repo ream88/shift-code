@@ -14,7 +14,7 @@ The browser extension which communicates with the serverless app to fetch the la
 
 ## [serverless](/serverless)
 
-A [serverless](https://serverless.com/framework/) function which runs on AWS Lambda to hide Twitter API credentials and deal with modern web ~~problems~~ technologies like [CORS](https://developer.mozilla.org/de/docs/Web/HTTP/CORS).
+A [serverless](https://serverless.com/framework/) function which runs on AWS Lambda to hide Twitter API credentials and deal with modern web ~~problems~~ technologies like [CORS](https://developer.mozilla.org/docs/Web/HTTP/CORS).
 
 ## Copyright
 
