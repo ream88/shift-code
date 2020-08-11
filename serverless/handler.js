@@ -38,6 +38,7 @@ function buildResponse (shiftCode) {
   if (shiftCode) {
     return { statusCode: 200, headers: corsHeaders, body: JSON.stringify(shiftCode) }
   }
+
   return { statusCode: 204, headers: corsHeaders }
 }
 
