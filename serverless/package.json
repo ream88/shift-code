@@ -8,10 +8,10 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "dotenv-cli": "^2.0.0",
-    "serverless-offline": "^4.9.4"
+    "dotenv-cli": "^3.2.0",
+    "serverless-offline": "^6.5.0"
   }
 }
