@@ -7,6 +7,8 @@ provider:
   stage: production
   deploymentBucket:
     name: lambda.mariouher.com
+  environment:
+    TOKEN: ${env:TOKEN}
 
 functions:
   fetch:
