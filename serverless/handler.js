@@ -27,10 +27,8 @@ function getRegex (platform) {
   }
 }
 
-function getShiftCode (tweets, regex) {
-  const text = tweets[0] && tweets[0].full_text
+function getShiftCode (text, regex) {
   const result = regex.exec(text)
-
   return result ? result.groups.shiftCode : null
 }
 
@@ -48,8 +46,8 @@ async function handler (event) {
 
   return fetch(`${url}?${params.toString()}`, headers)
     .then((response) => response.json())
-    .then((tweets) => tweets.filter((tweet) => regex.test(tweet.full_text)))
-    .then((tweets) => getShiftCode(tweets, regex))
+    .then((tweets) => tweets.find((tweet) => getShiftCode(tweet.full_text, regex)))
+    .then((tweet) => getShiftCode(tweet.full_text, regex))
     .then(buildResponse)
 }
 
