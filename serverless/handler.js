@@ -17,19 +17,36 @@ const corsHeaders = {
 function getRegex (platform) {
   switch (platform) {
     case 'xbox':
-      return /(XBOne|All\s+Platforms).*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+      return /XBOne.*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
 
     case 'ps':
-      return /(PS|All\s+Platforms).*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+      return /PS.*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
 
     default:
-      return /(PC|All\s+Platforms).*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
+      return /PC.*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/i
   }
 }
 
 function getShiftCode (text, regex) {
-  const result = regex.exec(text)
-  return result ? result.groups.shiftCode : null
+  // Check most recent style of tweets
+  let result = /All\s+Platforms.*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/is.exec(text)
+  if (result) {
+    return result.groups.shiftCode
+  }
+
+  // Check for Borderlands 3
+  result = /Borderlands\s+3.*(?<shiftCode>([A-Z0-9]{5}-){4}[A-Z0-9]{5}).*/is.exec(text)
+  if (result) {
+    return result.groups.shiftCode
+  }
+
+  // Check legacy platform specific tweets
+  result = regex.exec(text)
+  if (result) {
+    return result.groups.shiftCode
+  }
+
+  return null
 }
 
 function buildResponse (shiftCode) {
