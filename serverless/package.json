@@ -3,7 +3,7 @@
   "description": "Fetches the last SHiFT code tweet from https://twitter.com/borderlands",
   "main": "handler.js",
   "scripts": {
-    "deploy": "serverless deploy --aws-profile private",
+    "deploy": "dotenv -- serverless deploy --aws-profile private",
     "start": "dotenv serverless offline",
     "test": "node test.js"
   },
