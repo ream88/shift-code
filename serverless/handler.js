@@ -49,23 +49,23 @@ function getShiftCode (text, regex) {
   return null
 }
 
-function buildResponse (shiftCode) {
-  if (shiftCode) {
-    return { statusCode: 200, headers: corsHeaders, body: JSON.stringify(shiftCode) }
-  }
-
-  return { statusCode: 204, headers: corsHeaders }
-}
-
 async function handler (event) {
   const regex = getRegex(event.path.substring(1))
   const headers = { headers: { Authorization: `Bearer ${process.env.TOKEN}` } }
 
   return fetch(`${url}?${params.toString()}`, headers)
     .then((response) => response.json())
-    .then((tweets) => tweets.find((tweet) => getShiftCode(tweet.full_text, regex)))
-    .then((tweet) => getShiftCode(tweet.full_text, regex))
-    .then(buildResponse)
+    .then((tweets) => {
+      const tweet = tweets.find((tweet) => getShiftCode(tweet.retweeted_status ? tweet.retweeted_status.full_text : tweet.full_text, regex))
+
+      if (tweet) {
+        return Promise.resolve(getShiftCode(tweet.retweeted_status ? tweet.retweeted_status.full_text : tweet.full_text, regex))
+      } else {
+        return Promise.reject(new Error('No SHiFT code found!'))
+      }
+    })
+    .then((shiftCode) => ({ statusCode: 200, headers: corsHeaders, body: JSON.stringify(shiftCode) }))
+    .catch(() => ({ statusCode: 204, headers: corsHeaders }))
 }
 
 module.exports = {

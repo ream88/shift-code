@@ -1,5 +1,7 @@
 const assert = require('assert')
-const { getShiftCode, getRegex } = require('./handler.js')
+const fs = require('fs')
+const nock = require('nock')
+const { getShiftCode, getRegex, fetch: handler } = require('./handler.js')
 
 const tweets = [
   'Use these SHiFT codes to unock Golden Keys in Borderlands: The Pre-Sequel! [Active through 04/22]\nBL:TP\nPC / Mac / Linux: 5WKBT-RKRW6-35BTB-3T3TJ-XTCHF\nXBOne/XB360: 5WKBT-RKRZ3-66FTF-5X3TJ-XTCXB\nPS4/PS3: 5KWT3-J6FKH-SZTCT-HBK3J-HZ55R',
@@ -29,5 +31,15 @@ assert.strictEqual(getShiftCode(tweets[1], ps), null)
 assert.strictEqual(getShiftCode(tweets[2], ps), '5TCTT-FZJZ9-ZTCZ5-ZBKTB-WJ5CX')
 assert.strictEqual(getShiftCode(tweets[3], ps), '5BWT3-6FWJK-K3FJH-3BJ33-KTTWF')
 assert.strictEqual(getShiftCode(tweets[4], ps), 'WHCJB-XF9C9-KFWXS-XJT3T-3RTKR')
+
+const promises = JSON.parse(fs.readFileSync('test/fixtures.json'))
+  .map((tweet) => {
+    nock('https://api.twitter.com').get('/1.1/statuses/user_timeline.json').query(true).reply(200, [tweet])
+    return handler({ path: '/production' })
+  })
+
+Promise.all(promises)
+  .then((responses) => responses.filter((response) => response.statusCode === 200))
+  .then((responses) => assert.strictEqual(15, responses.length))
 
 console.info('OK')

@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "dotenv-cli": "^3.2.0",
+    "nock": "^13.0.4",
     "serverless-offline": "^6.5.0"
   }
 }
